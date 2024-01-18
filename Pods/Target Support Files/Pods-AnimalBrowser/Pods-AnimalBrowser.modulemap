@@ -1,0 +1,6 @@
+framework module Pods_AnimalBrowser {
+  umbrella header "Pods-AnimalBrowser-umbrella.h"
+
+  export *
+  module * { export * }
+}

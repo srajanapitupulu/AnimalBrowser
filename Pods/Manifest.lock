@@ -1,0 +1,20 @@
+PODS:
+  - FSPagerView (0.8.3)
+  - SwiftLint (0.54.0)
+
+DEPENDENCIES:
+  - FSPagerView
+  - SwiftLint
+
+SPEC REPOS:
+  trunk:
+    - FSPagerView
+    - SwiftLint
+
+SPEC CHECKSUMS:
+  FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
+
+PODFILE CHECKSUM: bcb5421a862e863c03ff5067587eba43ed1ac2f4
+
+COCOAPODS: 1.13.0

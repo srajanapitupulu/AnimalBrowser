@@ -1,24 +1,144 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MantraRimba.ttf">
+            <string>MantraRimba</string>
+        </array>
+    </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="AnimalBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QIH-nR-C57">
+                                <rect key="frame" x="0.0" y="409" width="393" height="509"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="ANIMAL NAME" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUW-nG-Rps">
+                                        <rect key="frame" x="96.666666666666686" y="150" width="200" height="40.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="MantraRimba" family="Mantra Rimba" pointSize="40"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92156862750000001" green="0.92941176469999998" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstItem="eUW-nG-Rps" firstAttribute="top" secondItem="QIH-nR-C57" secondAttribute="top" priority="1" constant="100" id="Clq-zi-ITa"/>
+                                    <constraint firstItem="eUW-nG-Rps" firstAttribute="centerX" secondItem="QIH-nR-C57" secondAttribute="centerX" id="cz5-9a-1F8"/>
+                                    <constraint firstItem="eUW-nG-Rps" firstAttribute="top" secondItem="QIH-nR-C57" secondAttribute="top" constant="150" id="kEU-JY-SiZ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="quD-Qi-8fV">
+                                <rect key="frame" x="31.666666666666657" y="176" width="330" height="375"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="375" id="3GB-BZ-E7W"/>
+                                    <constraint firstAttribute="height" priority="1" constant="200" id="LJi-rz-UaA"/>
+                                    <constraint firstAttribute="width" constant="330" id="zdj-Gs-OiW"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w6z-ZK-okw" customClass="FSPagerView" customModule="FSPagerView">
+                                <rect key="frame" x="0.0" y="176" width="393" height="375"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="375" id="fkw-oN-71M"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="automaticSlidingInterval">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="Gyk-az-XPT"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="xpL-Xs-tfP"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lSp-WL-fBi">
+                                <rect key="frame" x="323" y="69" width="50" height="50"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ngg-yR-buc">
+                                        <rect key="frame" x="8" y="11" width="35" height="32"/>
+                                        <color key="tintColor" red="0.83222919699999998" green="0.39046935459999998" blue="0.21955449260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="ngg-yR-buc" secondAttribute="height" multiplier="1:1" id="0cr-6Y-54u"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.92156862750000001" green="0.92941176469999998" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="ngg-yR-buc" firstAttribute="centerY" secondItem="lSp-WL-fBi" secondAttribute="centerY" constant="1" id="9nz-ia-xnc"/>
+                                    <constraint firstItem="ngg-yR-buc" firstAttribute="centerX" secondItem="lSp-WL-fBi" secondAttribute="centerX" id="LpB-mX-FpG"/>
+                                    <constraint firstAttribute="height" constant="50" id="Qdf-UM-rDJ"/>
+                                    <constraint firstItem="ngg-yR-buc" firstAttribute="height" secondItem="lSp-WL-fBi" secondAttribute="height" constant="-15" id="l84-0v-rtr"/>
+                                    <constraint firstAttribute="width" secondItem="lSp-WL-fBi" secondAttribute="height" multiplier="1:1" id="txa-St-r76"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" red="0.090196078430000007" green="0.23921568630000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="QIH-nR-C57" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="350" id="226-fW-FfX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QIH-nR-C57" secondAttribute="trailing" priority="1" id="57y-5G-g9t"/>
+                            <constraint firstItem="w6z-ZK-okw" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-75" id="AbZ-Mh-WN7"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="QIH-nR-C57" secondAttribute="trailing" id="EQQ-Ne-wxf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="lSp-WL-fBi" secondAttribute="trailing" constant="20" id="GHN-op-f4z"/>
+                            <constraint firstItem="w6z-ZK-okw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="IDp-1H-Koi"/>
+                            <constraint firstItem="QIH-nR-C57" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="100" id="It3-ZL-O65"/>
+                            <constraint firstItem="quD-Qi-8fV" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" constant="-75" id="LjS-gL-GQK"/>
+                            <constraint firstItem="QIH-nR-C57" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Psn-KS-fTN"/>
+                            <constraint firstItem="QIH-nR-C57" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" priority="1" id="XiT-wb-cUm"/>
+                            <constraint firstItem="quD-Qi-8fV" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZrZ-jN-M0r"/>
+                            <constraint firstItem="lSp-WL-fBi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="c5b-8P-mq4"/>
+                            <constraint firstItem="w6z-ZK-okw" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" id="jhA-82-iqT"/>
+                            <constraint firstItem="quD-Qi-8fV" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="1" id="pc5-M9-o37"/>
+                            <constraint firstItem="QIH-nR-C57" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" priority="1" constant="100" id="rU8-wh-z6M"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imgAnimal" destination="quD-Qi-8fV" id="szy-gh-CD7"/>
+                        <outlet property="imgAnimalHeightExpanded" destination="LJi-rz-UaA" id="Xcq-al-8ic"/>
+                        <outlet property="imgAnimalHeightOrigin" destination="3GB-BZ-E7W" id="gcK-Z4-gOP"/>
+                        <outlet property="imgAnimalTopExpanded" destination="pc5-M9-o37" id="Mbj-ZI-0g1"/>
+                        <outlet property="imgAnimalTopOrigin" destination="LjS-gL-GQK" id="ERi-Aa-LM1"/>
+                        <outlet property="lblAnimalName" destination="eUW-nG-Rps" id="Fzw-fF-wUc"/>
+                        <outlet property="lblAnimalNameTopExpanded" destination="Clq-zi-ITa" id="V8j-MP-f2s"/>
+                        <outlet property="lblAnimalNameTopOrigin" destination="kEU-JY-SiZ" id="zQH-Qm-vGD"/>
+                        <outlet property="pagerView" destination="w6z-ZK-okw" id="snU-aL-cpR"/>
+                        <outlet property="vwAnimal" destination="QIH-nR-C57" id="m2u-3U-rJ1"/>
+                        <outlet property="vwAnimalLeadingExpanded" destination="XiT-wb-cUm" id="E7H-k8-ygu"/>
+                        <outlet property="vwAnimalLeadingOrigin" destination="Psn-KS-fTN" id="WOt-e0-KQz"/>
+                        <outlet property="vwAnimalTopExpanded" destination="rU8-wh-z6M" id="LeZ-Ly-sgj"/>
+                        <outlet property="vwAnimalTopOrigin" destination="226-fW-FfX" id="LbE-nJ-pUQ"/>
+                        <outlet property="vwAnimalTrailingExpanded" destination="57y-5G-g9t" id="co9-0W-in3"/>
+                        <outlet property="vwAnimalTrailingOrigin" destination="EQQ-Ne-wxf" id="wvw-VL-qFx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="-27.464788732394368"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="heart.fill" catalog="system" width="128" height="107"/>
+    </resources>
 </document>
