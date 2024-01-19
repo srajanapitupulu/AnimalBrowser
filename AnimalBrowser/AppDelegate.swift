@@ -10,17 +10,45 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    let titleFontAttrs = [NSAttributedString.Key.font: UIFont(name: "MantraRimba", size: 20)!,
+                          NSAttributedString.Key.foregroundColor: UIColor.white]
+    
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-            // Override point for customization after application launch.
-            window = UIWindow(frame: UIScreen.main.bounds)
-            window?.rootViewController = MainViewController()
-            window?.makeKeyAndVisible()
-            return true
-        }
+        // Override point for customization after application launch.
+        
+        let viewController = MainViewController()
+        viewController.navigationController?.isNavigationBarHidden = true
+        let navigationController = UINavigationController(rootViewController: viewController)
+        
+        let appear = UINavigationBarAppearance()
+        
+        let backBtnAppear = UIBarButtonItem.appearance()
+        backBtnAppear.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000.0, vertical: 0.0), for: .default)
+        backBtnAppear.tintColor = UIColor(hexString: "#EBEDCF")
+
+        let atters: [NSAttributedString.Key: Any] = [
+            .font: UIFont(name: "MantraRimba", size: 30)!,
+            .foregroundColor: UIColor(hexString: "#EBEDCF")
+        ]
+
+        appear.largeTitleTextAttributes = atters
+        appear.titleTextAttributes = atters
+        appear.backgroundColor = UIColor(hexString: "#173D1C")
+        
+        UINavigationBar.appearance().standardAppearance = appear
+        UINavigationBar.appearance().compactAppearance = appear
+        UINavigationBar.appearance().scrollEdgeAppearance = appear
+        navigationController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        return true
+    }
 
     // MARK: UISceneSession Lifecycle
 
@@ -83,3 +111,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+
+
+extension UIColor {
+    convenience init(hexString: String) {
+        let hex = hexString.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int = UInt64()
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 3: // RGB (12-bit)
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6: // RGB (24-bit)
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8: // ARGB (32-bit)
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (255, 0, 0, 0)
+        }
+        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+}
