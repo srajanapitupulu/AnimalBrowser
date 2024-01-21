@@ -4,12 +4,14 @@ PODS:
     - SDWebImage/Core (= 5.18.6)
   - SDWebImage/Core (5.18.6)
   - SkeletonView (1.30.4)
+  - SquareFlowLayout (0.0.1)
   - SwiftLint (0.54.0)
 
 DEPENDENCIES:
   - FSPagerView
   - SDWebImage
   - SkeletonView
+  - SquareFlowLayout
   - SwiftLint
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - FSPagerView
     - SDWebImage
     - SkeletonView
+    - SquareFlowLayout
     - SwiftLint
 
 SPEC CHECKSUMS:
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
   SDWebImage: 3d8caa2430f3d674dbb3e515df4a100a2105af5f
   SkeletonView: 5a050f6411e697abd4cda0a8d767013399dccd69
+  SquareFlowLayout: cde3486d3086fb7f95b303d9b90bb86aa9dd98b5
   SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 9fb61a30aee402d28937600405ab92d140b6dce5
+PODFILE CHECKSUM: d21587f1f2357e9e6e378b2f3781389398bd232d
 
 COCOAPODS: 1.13.0

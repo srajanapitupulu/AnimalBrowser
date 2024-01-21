@@ -10,6 +10,7 @@ target 'AnimalBrowser' do
   pod 'FSPagerView'
   pod 'SkeletonView'
   pod 'SDWebImage'
+  pod 'SquareFlowLayout'
   
   target 'AnimalBrowserTests' do
     inherit! :search_paths

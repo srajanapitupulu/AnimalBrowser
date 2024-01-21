@@ -31,6 +31,7 @@
 		CFBD15BA2B59A2FF005B6B05 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBD15B82B59A2FF005B6B05 /* PhotosCell.swift */; };
 		CFBD15BB2B59A2FF005B6B05 /* PhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */; };
 		CFFF245C2B5CA2A600CCA74F /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFF245B2B5CA2A600CCA74F /* CoreDataHandler.swift */; };
+		CFFF24642B5D010E00CCA74F /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFF24632B5D010E00CCA74F /* ToastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		CFBD15B82B59A2FF005B6B05 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCell.xib; sourceTree = "<group>"; };
 		CFFF245B2B5CA2A600CCA74F /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
+		CFFF24632B5D010E00CCA74F /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 			children = (
 				CFBD15B82B59A2FF005B6B05 /* PhotosCell.swift */,
 				CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */,
+				CFFF24632B5D010E00CCA74F /* ToastView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				CF4FE0A02B590CF100717374 /* AnimalPhoto.swift in Sources */,
 				CF4FE0A22B59138A00717374 /* APIHelper.swift in Sources */,
 				CF4FE09B2B59078000717374 /* APIs.swift in Sources */,
+				CFFF24642B5D010E00CCA74F /* ToastView.swift in Sources */,
 				CF8C6D622B56F8A900ECEE21 /* SceneDelegate.swift in Sources */,
 				CFBD15BA2B59A2FF005B6B05 /* PhotosCell.swift in Sources */,
 				CF4FE09E2B590CE600717374 /* Animal.swift in Sources */,
