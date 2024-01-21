@@ -9,7 +9,7 @@ import UIKit
 
 class SavedCollectionViewLayout: UICollectionViewLayout {
     private let columnsCount = 18 // 18 type columns
-    private let numberOfColumns = CGFloat(2.0)
+    private let numberOfColumns = CGFloat(3.0)
     private let minimumLineSpacing: CGFloat = 2
     private let minimumInteritemSpacing: CGFloat = 2
     private var cache: [UICollectionViewLayoutAttributes] = []
@@ -90,6 +90,7 @@ class SavedCollectionViewLayout: UICollectionViewLayout {
 
     override func layoutAttributesForItem(at indexPath: IndexPath)
         -> UICollectionViewLayoutAttributes? {
+            print("INDEX PATH \(indexPath.row)")
             return cache[indexPath.item]
     }
 

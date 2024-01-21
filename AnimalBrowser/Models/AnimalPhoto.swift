@@ -11,6 +11,7 @@ struct AnimalPhotoResult: Codable {
     let page: Int
     let total_results: Int
     let photos: [AnimalPhoto]
+    let next_page: String
 }
 
 struct PhotoSource: Codable {

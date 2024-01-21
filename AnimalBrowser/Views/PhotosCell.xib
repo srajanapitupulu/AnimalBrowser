@@ -18,62 +18,30 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lfj-n9-8fP">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.92941176469999998" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </imageView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dPF-ao-vA5" userLabel="View Favorite">
-                        <rect key="frame" x="105" y="105" width="40" height="40"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hNI-5n-Uhp">
-                                <rect key="frame" x="6" y="9" width="28" height="25"/>
-                                <color key="tintColor" red="0.83222919699999998" green="0.39046935459999998" blue="0.21955449260000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="hNI-5n-Uhp" secondAttribute="height" multiplier="1:1" id="2Yz-dm-Ru5"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyP-Jh-cBd">
-                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="wyP-Jh-cBd" firstAttribute="centerX" secondItem="dPF-ao-vA5" secondAttribute="centerX" id="KuP-Ku-6ll"/>
-                            <constraint firstItem="wyP-Jh-cBd" firstAttribute="centerY" secondItem="dPF-ao-vA5" secondAttribute="centerY" id="XCz-aX-iXn"/>
-                            <constraint firstAttribute="height" constant="40" id="hdx-2z-Rq3"/>
-                            <constraint firstItem="hNI-5n-Uhp" firstAttribute="centerY" secondItem="dPF-ao-vA5" secondAttribute="centerY" constant="1" id="kYr-xC-KCF"/>
-                            <constraint firstItem="hNI-5n-Uhp" firstAttribute="height" secondItem="dPF-ao-vA5" secondAttribute="height" constant="-12" id="lNq-GK-7Vr"/>
-                            <constraint firstItem="wyP-Jh-cBd" firstAttribute="height" secondItem="dPF-ao-vA5" secondAttribute="height" id="nim-Fh-Slj"/>
-                            <constraint firstItem="wyP-Jh-cBd" firstAttribute="width" secondItem="dPF-ao-vA5" secondAttribute="width" id="o9b-z3-LCw"/>
-                            <constraint firstAttribute="width" secondItem="dPF-ao-vA5" secondAttribute="height" multiplier="1:1" id="ryF-mz-tCR"/>
-                            <constraint firstItem="hNI-5n-Uhp" firstAttribute="centerX" secondItem="dPF-ao-vA5" secondAttribute="centerX" id="ucS-cg-IEQ"/>
-                        </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="25"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6dy-XD-doy">
+                        <rect key="frame" x="54" y="64" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.090196078430000007" green="0.23921568630000001" blue="0.10980392160000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" red="0.92156862750000001" green="0.92941176469999998" blue="0.81176470590000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="Lfj-n9-8fP" firstAttribute="height" secondItem="gTV-IL-0wX" secondAttribute="height" id="CCa-0N-qau"/>
-                <constraint firstItem="dPF-ao-vA5" firstAttribute="width" secondItem="dPF-ao-vA5" secondAttribute="height" multiplier="1:1" id="EH3-Hu-EhE"/>
                 <constraint firstItem="Lfj-n9-8fP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Qbb-U9-mDJ"/>
                 <constraint firstItem="Lfj-n9-8fP" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="ZJ6-Aj-fa1"/>
                 <constraint firstItem="Lfj-n9-8fP" firstAttribute="width" secondItem="gTV-IL-0wX" secondAttribute="width" id="bWE-6W-XHv"/>
-                <constraint firstAttribute="bottom" secondItem="dPF-ao-vA5" secondAttribute="bottom" constant="5" id="sPZ-CF-dIO"/>
-                <constraint firstAttribute="trailing" secondItem="dPF-ao-vA5" secondAttribute="trailing" constant="5" id="vEy-8o-htU"/>
             </constraints>
             <size key="customSize" width="96" height="103"/>
             <connections>
-                <outlet property="btnFavorite" destination="wyP-Jh-cBd" id="bWQ-sb-aXS"/>
                 <outlet property="imageView" destination="Lfj-n9-8fP" id="VwK-Tf-1Nm"/>
+                <outlet property="lblCount" destination="6dy-XD-doy" id="G6t-YW-qdF"/>
             </connections>
             <point key="canvasLocation" x="-128.24427480916029" y="7.394366197183099"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="heart" catalog="system" width="128" height="107"/>
-    </resources>
 </document>

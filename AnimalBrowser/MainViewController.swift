@@ -28,6 +28,12 @@ class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDele
         return photosViewController
     }()
     
+    lazy var favoritesViewController : FavoritesViewController? =
+    {
+        let favoritesViewController =  UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FavoritesViewController") as? FavoritesViewController
+        return favoritesViewController
+    }()
+    
     @IBOutlet weak var vwAnimalLeadingOrigin:NSLayoutConstraint!
     @IBOutlet weak var vwAnimalLeadingExpanded:NSLayoutConstraint!
     @IBOutlet weak var vwAnimalTrailingOrigin:NSLayoutConstraint!
@@ -88,7 +94,7 @@ class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDele
     
     @IBOutlet weak var btnFavorite: UIButton!{
         didSet{
-            
+            btnFavorite.addTarget(self, action: #selector(goToFavorite), for: .touchUpInside)
         }
     }
     @IBOutlet weak var btnCloseInfo: UIButton!{
@@ -112,12 +118,17 @@ class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDele
             pagerView.isInfinite = true
             pagerView.itemSize = CGSize(width: 330, height: 375)
             pagerView.transformer = FSPagerViewTransformer(type: .overlap)
-            //            pagerView.interitemSpacing = -500
         }
     }
     
     @objc func goToFavorite(_ sender: UIButton) {
-        
+        guard let favoritesViewController = self.favoritesViewController else
+        {
+            return
+        }
+        favoritesViewController.animalName = "My Favorites"
+        favoritesViewController.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.pushViewController(favoritesViewController, animated: true)
     }
     
     @objc func showMoreInfo(_ sender: UIButton) {
@@ -199,8 +210,6 @@ class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDele
             loadAnimalData(index: index)
         }
         else {
-            
-            
             guard let photosViewController = self.photosViewController else
             {
                 return

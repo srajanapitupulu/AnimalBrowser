@@ -30,6 +30,7 @@
 		CFBD15B62B59A1AC005B6B05 /* SavedCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBD15B52B59A1AC005B6B05 /* SavedCollectionViewLayout.swift */; };
 		CFBD15BA2B59A2FF005B6B05 /* PhotosCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFBD15B82B59A2FF005B6B05 /* PhotosCell.swift */; };
 		CFBD15BB2B59A2FF005B6B05 /* PhotosCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */; };
+		CFFF245C2B5CA2A600CCA74F /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFF245B2B5CA2A600CCA74F /* CoreDataHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,7 @@
 		A30E91826F66999B77E61794 /* Pods-AnimalBrowser.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalBrowser.debug.xcconfig"; path = "Target Support Files/Pods-AnimalBrowser/Pods-AnimalBrowser.debug.xcconfig"; sourceTree = "<group>"; };
 		CADF3AB99B573ACBAE856EFD /* Pods-AnimalBrowserTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AnimalBrowserTests.debug.xcconfig"; path = "Target Support Files/Pods-AnimalBrowserTests/Pods-AnimalBrowserTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CBA1FA393883CA1635B1C0C1 /* Pods_AnimalBrowserTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AnimalBrowserTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF4FE0942B57057300717374 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		CF4FE0942B57057300717374 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CF4FE0972B58397A00717374 /* MantraRimba.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MantraRimba.ttf; sourceTree = "<group>"; };
 		CF4FE09A2B59078000717374 /* APIs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIs.swift; sourceTree = "<group>"; };
 		CF4FE09D2B590CE600717374 /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
@@ -81,6 +82,7 @@
 		CFBD15B52B59A1AC005B6B05 /* SavedCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCollectionViewLayout.swift; sourceTree = "<group>"; };
 		CFBD15B82B59A2FF005B6B05 /* PhotosCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCell.swift; sourceTree = "<group>"; };
 		CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosCell.xib; sourceTree = "<group>"; };
+		CFFF245B2B5CA2A600CCA74F /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 		CF8C6D5E2B56F8A900ECEE21 /* AnimalBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				CFFF245A2B5CA28E00CCA74F /* CoreData */,
 				CFBD15B72B59A2DF005B6B05 /* Views */,
 				CFBD15B42B59A17C005B6B05 /* UIHelpers */,
 				CF4FE09C2B590CD700717374 /* Models */,
@@ -233,6 +236,14 @@
 				CFBD15B92B59A2FF005B6B05 /* PhotosCell.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		CFFF245A2B5CA28E00CCA74F /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				CFFF245B2B5CA2A600CCA74F /* CoreDataHandler.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -438,6 +449,7 @@
 			files = (
 				CF8C6D6A2B56F8A900ECEE21 /* AnimalBrowser.xcdatamodeld in Sources */,
 				CFBD15B12B599CDF005B6B05 /* FavoritesViewController.swift in Sources */,
+				CFFF245C2B5CA2A600CCA74F /* CoreDataHandler.swift in Sources */,
 				CF8C6D642B56F8A900ECEE21 /* MainViewController.swift in Sources */,
 				CF8C6D602B56F8A900ECEE21 /* AppDelegate.swift in Sources */,
 				CF4FE0A02B590CF100717374 /* AnimalPhoto.swift in Sources */,

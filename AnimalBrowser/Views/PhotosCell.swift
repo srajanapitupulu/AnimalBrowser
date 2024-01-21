@@ -6,18 +6,16 @@
 //
 
 import UIKit
+import SkeletonView
 
 class PhotosCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
-    
-    @IBOutlet weak var btnFavorite: UIButton!
+    @IBOutlet weak var lblCount: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
-        
+        self.imageView.isSkeletonable = true
     }
-
 }

@@ -32,8 +32,8 @@ enum APIs {
         static var baseAPIKey = "F0RsC7L6viQO7bzFmZTKs7hwGWhXlwm5TjAozyXUwkTmB8INisxbwjVg"
         static var baseAPIHeader = "Authorization"
         
-        static func getAnimalPictures(name: String) -> URL {
-            return URL(string: APIs.PexelsAPI.baseUrl + "query=\(name)&per_page=40")!
+        static func getAnimalPictures(name: String, pageNum: Int = 1) -> URL {
+            return URL(string: APIs.PexelsAPI.baseUrl + "query=\(name)&page=\(pageNum)&per_page=42")!
         }
     }
 }
