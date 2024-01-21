@@ -13,7 +13,7 @@ enum AnimalInfoViewState: Int {
     case isCollapsed
 }
 
-class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDelegate {
+class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDelegate {
     
     let imageNames = ["ELEPHANT", "LION", "FOX", "DOG", "SHARK", "TURTLE", "WHALE", "PENGUIN"]
     let iconNames = ["ic_elephant", "ic_lion", "ic_fox", "ic_dog", "ic_shark", "ic_turtle", "ic_whale", "ic_penguin"]
@@ -56,15 +56,6 @@ class MainViewController: UIViewController,FSPagerViewDataSource,FSPagerViewDele
         didSet {
             vwAnimal.layer.shadowOffset = CGSize(width: 100, height: 100)
             vwAnimal.layer.shadowRadius = 10.0
-            
-//            let tapView = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
-//            let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-//            let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe(_:)))
-//            swipeUp.direction = UISwipeGestureRecognizer.Direction.up
-//            swipeDown.direction = UISwipeGestureRecognizer.Direction.down
-//            vwAnimal.addGestureRecognizer(swipeUp)
-//            vwAnimal.addGestureRecognizer(swipeDown)
-//            vwAnimal.addGestureRecognizer(tapView)
         }
     }
     @IBOutlet weak var vwShowMore: UIView!

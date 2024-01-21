@@ -91,6 +91,7 @@ class CoreDataHandler {
         photo.pexel_id = Int64(withPhoto.pexel_id)
         photo.width = Int64(withPhoto.width)
         photo.height = Int64(withPhoto.height)
+        photo.alt = withPhoto.alt
         
         photos.append(photo)
         
@@ -101,5 +102,28 @@ class CoreDataHandler {
         let context = persistentContainer.viewContext
         context.delete(photo)
         return saveContext()
+    }
+    
+    func deleteFavorite(byPexelID: Int) -> Bool {
+        let context = persistentContainer.viewContext
+        let request: NSFetchRequest<LikedPhotos> = LikedPhotos.fetchRequest()
+        request.predicate = NSPredicate(format: "pexel_id = %d", byPexelID)
+        var isDeleted = false
+        var fetchedPhotos: [LikedPhotos] = []
+        
+        do {
+            fetchedPhotos = try context.fetch(request)
+            print(fetchedPhotos)
+            
+            for photo in fetchedPhotos {
+                context.delete(photo)
+                if saveContext() {
+                    isDeleted = true
+                }
+            }
+        } catch let error {
+            print("Error fetching songs \(error)")
+        }
+        return isDeleted
     }
 }

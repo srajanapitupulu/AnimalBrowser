@@ -19,11 +19,37 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
     var flowLayout = SquareFlowLayout()
     
     var toastActionSheet = ToastView()
+    var emptyStateView: UIView = {
+        var emptyStateView = UIView()
+        emptyStateView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: UIScreen.main.bounds.width,
+                                      height: UIScreen.main.bounds.height)
+        emptyStateView.backgroundColor = UIColor(hexString: "#EBEDCF")
+
+        let messageLabel = UILabel()
+        messageLabel.text = "No items to display"
+        messageLabel.font = UIFont.init(name: "Futura-Medium", size: 17)
+        messageLabel.textColor = .gray
+        messageLabel.textColor = UIColor(hexString: "#D46438")
+        messageLabel.textAlignment = .center
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        emptyStateView.addSubview(messageLabel)
+
+        NSLayoutConstraint.activate([
+            messageLabel.centerXAnchor.constraint(equalTo: emptyStateView.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: emptyStateView.centerYAnchor)
+        ])
+        
+        return emptyStateView
+    }()
     
     var goingForward: Bool = false
     var animalName: String = ""
     var nextPage: String = ""
     var photos: [AnimalPhoto] = []
+    var selectedPhotoIndex: Int = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -114,6 +140,32 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         return cell
     }
     
+    @objc func addToFavorite(_ sender: UIButton) {
+        let selectedPhoto = self.photos[selectedPhotoIndex]
+        
+        switch sender.tag {
+            // Add Photo into Favorite List
+        case FavoriteButtonState.unfavorited.rawValue:
+            if CoreDataHandler.shared.addFavorite(animal: self.animalName, withPhoto: selectedPhoto) {
+                toastActionSheet.changeAddFavoriteButtonState(state: .favorited)
+                self.photos[selectedPhotoIndex].liked = true
+            }
+            break
+            // Remove Photo from Favorite List
+        case FavoriteButtonState.favorited.rawValue:
+            if CoreDataHandler.shared.deleteFavorite(byPexelID: selectedPhoto.pexel_id) {
+                toastActionSheet.changeAddFavoriteButtonState(state: .unfavorited)
+                self.photos[selectedPhotoIndex].liked = false
+            }
+            break
+            
+        default: break
+        }
+        
+        let indexPath = IndexPath(item: selectedPhotoIndex, section: 0)
+        self.collectionView.reloadItems(at: [indexPath])
+    }
+    
     @objc func goToFavorite(_ sender: UIButton) {
         toastActionSheet.dismiss(animated: true, completion: nil)
         guard let favoritesViewController = self.favoritesViewController else
@@ -127,27 +179,54 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
         self.goingForward = true
     }
     
+    @objc func openOriginalPhoto(_ sender: UIButton) {
+        let selectedPhoto = self.photos[selectedPhotoIndex]
+        if let url = URL(string: selectedPhoto.url) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedPhoto = self.photos[indexPath.row]
+        selectedPhotoIndex = indexPath.row
+        let selectedPhoto = self.photos[selectedPhotoIndex]
         
-        if CoreDataHandler.shared.addFavorite(animal: self.animalName, withPhoto: selectedPhoto) {
-            
-            toastActionSheet.toastImage.sd_setImage(with: URL(string: selectedPhoto.src.original)!,
-                                                    placeholderImage: UIImage(named: "ImageBroken"))
-            toastActionSheet.toastImage.tag = 102
-            if selectedPhoto.height > selectedPhoto.width {
-                toastActionSheet.toastImage.tag = 101
-            }
-            
-            toastActionSheet.toastLabel.text = selectedPhoto.alt
-            toastActionSheet.showFavoritesButton.addTarget(self,
-                                                           action: #selector(goToFavorite(_:)),
-                                                           for: .touchUpInside)
-            toastActionSheet.modalPresentationStyle = .automatic
-            present(toastActionSheet, animated: true, completion: nil)
+        toastActionSheet.toastTitle.text = selectedPhoto.alt
+        
+        toastActionSheet.toastImage.sd_setImage(with: URL(string: selectedPhoto.src.original)!,
+                                                placeholderImage: UIImage(named: "ImageBroken"))
+        toastActionSheet.toastImage.tag = 102
+        if selectedPhoto.height > selectedPhoto.width {
+            toastActionSheet.toastImage.tag = 101
+        }
+        
+        let attributedString = NSMutableAttributedString(string: "Photo by: \(selectedPhoto.photographer)")
+        attributedString.addAttribute(.font,
+                                      value: UIFont.init(name: "Futura-Medium", size: 12)!,
+                                      range: NSRange(location: 0,
+                                                     length: "Photo by: \(selectedPhoto.photographer)".count))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.white,
+                                      range: NSRange(location: 0,
+                                                     length: "Photo by: \(selectedPhoto.photographer)".count))
+        toastActionSheet.photographerLabel.setAttributedTitle(attributedString, for: .normal)
+        
+        if selectedPhoto.liked {
+            toastActionSheet.changeAddFavoriteButtonState(state: .favorited)
         }
         else {
+            toastActionSheet.changeAddFavoriteButtonState(state: .unfavorited)
         }
+        toastActionSheet.addFavoritesButton.addTarget(self,
+                                                      action: #selector(addToFavorite(_:)),
+                                                      for: .touchUpInside)
+        toastActionSheet.showFavoritesButton.addTarget(self,
+                                                       action: #selector(goToFavorite(_:)),
+                                                       for: .touchUpInside)
+        toastActionSheet.urlButton.addTarget(self,
+                                             action: #selector(openOriginalPhoto(_:)),
+                                             for: .touchUpInside)
+        
+        toastActionSheet.modalPresentationStyle = .automatic
+        present(toastActionSheet, animated: true, completion: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -163,8 +242,23 @@ class PhotosViewController: UIViewController, UICollectionViewDataSource, UIColl
             
             DispatchQueue.main.async{
                 self.collectionView.reloadData()
+                
+                if self.photos.isEmpty {
+                    self.showEmptyStateView(isVisible: true)
+                }
+                else {
+                    self.showEmptyStateView(isVisible: false)
+                }
             }
         }
+    }
+    
+    // Function to show the empty state view
+    func showEmptyStateView(isVisible: Bool) {
+        emptyStateView.isHidden = !isVisible
+        emptyStateView.isUserInteractionEnabled = false
+        if isVisible { emptyStateView.alpha = 1.0 }
+        else {emptyStateView.alpha = 0.0}
     }
 }
 
