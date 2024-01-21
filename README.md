@@ -67,6 +67,19 @@ Before running the Animal Browser project, ensure that you have the following:
 - Users can option to like/unlike photos and mark them as favorites by clicking the `Add To My Favorite` button.
 - Users can filter favorited photos by animal species using the filter button in the navigation bar.
 
+
+## Screenshots
+
+![Main Page](screenshots/homepage1.png)
+![Main Page](screenshots/homepage2.png)
+![Photo List](screenshots/photolist1.png)
+![Photo List](screenshots/photolist2.png)
+![Photo List](screenshots/photolist3.png)
+![Favorited Photos](screenshots/favorite1.png)
+![Favorited Photos](screenshots/favorite2.png)
+![Favorited Photos](screenshots/favorite3.png)
+![Misc](screenshots/emptystate.png)
+
 ## Technologies Used
 - Swift 5
 - UIKit
