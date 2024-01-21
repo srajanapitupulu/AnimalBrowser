@@ -34,25 +34,12 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-//        self.collectionView.prefetchDataSource = self
         
-        self.photos = CoreDataHandler.shared.retrieveAll()
+        self.photos = CoreDataHandler.shared.retrieve()
         
-        
-//        APIHelper.fetchAnimalPhotos(animalName: self.animalName) { (queryResult) in
-//            self.nextPage = queryResult.next_page
-//            self.photos.append(contentsOf: queryResult.photos)
-//            
-//            DispatchQueue.main.async{
-                self.collectionView.reloadData()
-////                self.collectionView.collectionViewLayout.invalidateLayout()
-////                self.collectionView.collectionViewLayout = SavedCollectionViewLayout()
-////                self.collectionView.layoutSubviews()
-                self.collectionView.setNeedsLayout()
-                self.collectionView.layoutIfNeeded()
-////                self.view.layoutIfNeeded()
-//            }
-//        }
+        self.collectionView.reloadData()
+        self.collectionView.setNeedsLayout()
+        self.collectionView.layoutIfNeeded()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -70,6 +57,8 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         
         appearance.titleTextAttributes = titleFontAttrs
         appearance.largeTitleTextAttributes = titleFontAttrs
+        
+        self.navigationController!.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -115,44 +104,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedPhoto = self.photos[indexPath.row]
-        
-//        if CoreDataHandler.shared.addFavorite(animal: self.animalName, withPhoto: selectedPhoto) {
-//            let alert = UIAlertController(title: "Alert Title", message: "Alert Message", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//            NSLog("The \"OK\" alert occured.")
-//                print(CoreDataHandler.shared.retrieveAll())
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//        else {
-//            let alert = UIAlertController(title: "Alert Title", message: "Alert Message", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
-//            NSLog("The \"OK\" alert occured.")
-//            }))
-//            self.present(alert, animated: true, completion: nil)
-//        }
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        if indexPath.row > (self.photos.count - 6) {
-//            APIHelper.fetchNextPage(nextPage: self.nextPage) { (queryResult) in
-//                self.photos.append(contentsOf: queryResult.photos)
-//
-//                DispatchQueue.main.async{
-//                    print("PHOTO COUNT \(self.photos.count)")
-//                    self.collectionView.reloadData()
-//                    self.collectionView.reloadSections(IndexSet(integer: indexPath.section))
-////                    self.collectionView.collectionViewLayout.invalidateLayout()
-////                    self.collectionView.collectionViewLayout = SavedCollectionViewLayout()
-////                    self.collectionView.layoutSubviews()
-////                    self.view.layoutIfNeeded()
-//
-//                    self.collectionView.setNeedsLayout()
-//                    self.collectionView.layoutIfNeeded()
-//                }
-//            }
-//        }
-//    }
 }
 
 extension FavoritesViewController: SkeletonCollectionViewDataSource {
@@ -161,10 +113,3 @@ extension FavoritesViewController: SkeletonCollectionViewDataSource {
         return "PhotosCell"
     }
 }
-
-//extension PhotosViewController: UICollectionViewDataSourcePrefetching {
-//  func collectionView(_ collectionView: UICollectionView,
-//                      prefetchItemsAt indexPaths: [IndexPath]) {
-//    print("Prefetch: \(indexPaths)")
-//  }
-//}

@@ -43,8 +43,12 @@ class CoreDataHandler {
     }
     
     // MARK: - Core Data Retrieve Favorites Photo
-    func retrieveAll() -> [LikedPhotos] {
+    func retrieve(filterByName: String = "") -> [LikedPhotos] {
         let request: NSFetchRequest<LikedPhotos> = LikedPhotos.fetchRequest()
+        
+        if !filterByName.isEmpty {
+            request.predicate = NSPredicate(format: "animal_name = %@", filterByName)
+        }
         
         var fetchedPhotos: [LikedPhotos] = []
         
@@ -55,26 +59,27 @@ class CoreDataHandler {
         }
         return fetchedPhotos
     }
-    
-    func retrieve(filterByName: String = "%") -> [LikedPhotos] {
+    func isFavorited(pexel_id: Int) -> Bool {
         let request: NSFetchRequest<LikedPhotos> = LikedPhotos.fetchRequest()
-        
-        request.predicate = NSPredicate(format: "animal_name = %@", filterByName)
-        
+        request.predicate = NSPredicate(format: "pexel_id = %d", pexel_id)
+        var isFavorited = false
         var fetchedPhotos: [LikedPhotos] = []
         
         do {
             fetchedPhotos = try persistentContainer.viewContext.fetch(request)
+            if !fetchedPhotos.isEmpty {
+                isFavorited = true
+            }
         } catch let error {
             print("Error fetching songs \(error)")
         }
-        return fetchedPhotos
+        return isFavorited
     }
     
     // MARK: - Core Data Saving Favorites Photo
     func addFavorite(animal: String, withPhoto: AnimalPhoto) -> Bool {
         let photo = LikedPhotos(context: persistentContainer.viewContext)
-        var photos = retrieveAll()
+        var photos = retrieve()
         
         photo.animal_name = animal
         photo.original_photo = withPhoto.src.original

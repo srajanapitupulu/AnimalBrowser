@@ -11,6 +11,7 @@ import SkeletonView
 class PhotosCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageFavorite: UIImageView!
     @IBOutlet weak var lblCount: UILabel!
 
     override func awakeFromNib() {

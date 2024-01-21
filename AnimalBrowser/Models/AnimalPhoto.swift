@@ -10,7 +10,7 @@ import Foundation
 struct AnimalPhotoResult: Codable {
     let page: Int
     let total_results: Int
-    let photos: [AnimalPhoto]
+    var photos: [AnimalPhoto]
     let next_page: String
 }
 
@@ -22,6 +22,7 @@ struct PhotoSource: Codable {
 
 struct AnimalPhoto: Codable {
     let pexel_id: Int
+    var liked: Bool
     let width: Int
     let height: Int
     let url: String
@@ -34,6 +35,7 @@ struct AnimalPhoto: Codable {
     
     enum CodingKeys: String, CodingKey {
         case pexel_id = "id"
+        case liked
         case width
         case height
         case url
@@ -46,6 +48,7 @@ struct AnimalPhoto: Codable {
     }
     
     init(pexel_id: Int,
+         liked: Bool,
          width: Int,
          height: Int,
          url: String,
@@ -57,6 +60,7 @@ struct AnimalPhoto: Codable {
          alt: String) {
         
         self.pexel_id = pexel_id
+        self.liked = liked
         self.width = width
         self.height = height
         self.url = url

@@ -38,8 +38,18 @@ struct APIHelper {
         task.resume()
     }
     
-    static func fetchAnimalPhotos(animalName: String, completionHandler: @escaping (AnimalPhotoResult) -> Void) {
-        let url = APIs.PexelsAPI.getAnimalPictures(name: animalName)
+    static func fetchAnimalPhotos(animalName: String,
+                                  nextPage: String = "",
+                                  completionHandler: @escaping (AnimalPhotoResult) -> Void) {
+        let url: URL
+        
+        if nextPage.isEmpty {
+            url = APIs.PexelsAPI.getAnimalPictures(name: animalName)
+        }
+        else {
+            url = URL(string: nextPage)!
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue(APIs.PexelsAPI.baseAPIKey, forHTTPHeaderField: APIs.PexelsAPI.baseAPIHeader)
@@ -58,8 +68,10 @@ struct APIHelper {
             
             do {
                 let dataResult = data
-                let animalPhotoResult = try! JSONDecoder().decode(AnimalPhotoResult.self, from: dataResult!)
-                completionHandler(animalPhotoResult)
+                var tempResult = try! JSONDecoder().decode(AnimalPhotoResult.self, from: dataResult!)
+                
+                tempResult.photos = collectFavoriteStatus(photoList: tempResult.photos)
+                completionHandler(tempResult)
             }
             catch {
                 print("Unexpected error: \(error).")
@@ -88,13 +100,30 @@ struct APIHelper {
             
             do {
                 let dataResult = data
-                let animalPhotoResult = try! JSONDecoder().decode(AnimalPhotoResult.self, from: dataResult!)
-                completionHandler(animalPhotoResult)
+                var tempResult = try! JSONDecoder().decode(AnimalPhotoResult.self, from: dataResult!)
+                
+                tempResult.photos = collectFavoriteStatus(photoList: tempResult.photos)
+                
+                completionHandler(tempResult)
             }
             catch {
                 print("Unexpected error: \(error).")
             }
         })
         task.resume()
+    }
+    
+    static func collectFavoriteStatus(photoList: [AnimalPhoto]) -> [AnimalPhoto] {
+        var animalPhotoResult = [AnimalPhoto]()
+        
+        for var photoData in photoList {
+            if CoreDataHandler.shared.isFavorited(pexel_id: photoData.pexel_id) {
+                photoData.liked = true
+            }
+            
+            animalPhotoResult.append(photoData)
+        }
+        
+        return animalPhotoResult
     }
 }
