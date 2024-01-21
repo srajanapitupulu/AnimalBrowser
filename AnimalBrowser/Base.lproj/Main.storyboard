@@ -61,7 +61,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="LJF-wM-cXx">
-                                        <rect key="frame" x="20" y="221.33333333333334" width="353" height="93.666666666666657"/>
+                                        <rect key="frame" x="0.0" y="221.33333333333334" width="393" height="93.666666666666657"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     </tableView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dOu-Pz-tuY">
@@ -81,13 +81,13 @@
                                     <constraint firstAttribute="trailing" secondItem="GFl-uL-RPc" secondAttribute="trailing" constant="20" id="6L6-Td-DIG"/>
                                     <constraint firstAttribute="bottom" secondItem="LJF-wM-cXx" secondAttribute="bottom" constant="100" id="8ec-8u-VVd"/>
                                     <constraint firstItem="eUW-nG-Rps" firstAttribute="top" secondItem="QIH-nR-C57" secondAttribute="top" priority="1" constant="100" id="Clq-zi-ITa"/>
-                                    <constraint firstItem="LJF-wM-cXx" firstAttribute="leading" secondItem="QIH-nR-C57" secondAttribute="leading" constant="20" id="FYp-1a-Tir"/>
+                                    <constraint firstItem="LJF-wM-cXx" firstAttribute="leading" secondItem="QIH-nR-C57" secondAttribute="leading" id="FYp-1a-Tir"/>
                                     <constraint firstItem="GFl-uL-RPc" firstAttribute="leading" secondItem="QIH-nR-C57" secondAttribute="leading" constant="20" id="LaQ-GT-U9m"/>
                                     <constraint firstItem="dOu-Pz-tuY" firstAttribute="top" secondItem="QIH-nR-C57" secondAttribute="top" constant="20" id="Mlb-le-Rjk"/>
                                     <constraint firstItem="GFl-uL-RPc" firstAttribute="top" secondItem="PY5-Yz-66n" secondAttribute="bottom" constant="8" id="R0a-vp-aYu"/>
                                     <constraint firstItem="LJF-wM-cXx" firstAttribute="top" secondItem="GFl-uL-RPc" secondAttribute="bottom" constant="20" id="Y7Q-fx-87d"/>
                                     <constraint firstItem="eUW-nG-Rps" firstAttribute="centerX" secondItem="QIH-nR-C57" secondAttribute="centerX" id="cz5-9a-1F8"/>
-                                    <constraint firstAttribute="trailing" secondItem="LJF-wM-cXx" secondAttribute="trailing" constant="20" id="ffV-9L-woj"/>
+                                    <constraint firstAttribute="trailing" secondItem="LJF-wM-cXx" secondAttribute="trailing" id="ffV-9L-woj"/>
                                     <constraint firstAttribute="trailing" secondItem="PY5-Yz-66n" secondAttribute="trailing" constant="20" id="jdO-o1-OBl"/>
                                     <constraint firstItem="eUW-nG-Rps" firstAttribute="top" secondItem="QIH-nR-C57" secondAttribute="top" constant="100" id="kEU-JY-SiZ"/>
                                     <constraint firstItem="PY5-Yz-66n" firstAttribute="top" secondItem="eUW-nG-Rps" secondAttribute="bottom" constant="15" id="sfa-tY-0Ua"/>
@@ -257,6 +257,7 @@
                         <outlet property="lblAnimalNameTopExpanded" destination="Clq-zi-ITa" id="V8j-MP-f2s"/>
                         <outlet property="lblAnimalNameTopOrigin" destination="kEU-JY-SiZ" id="zQH-Qm-vGD"/>
                         <outlet property="pagerView" destination="w6z-ZK-okw" id="snU-aL-cpR"/>
+                        <outlet property="tableView" destination="LJF-wM-cXx" id="hQk-TL-WCc"/>
                         <outlet property="vwAnimal" destination="QIH-nR-C57" id="m2u-3U-rJ1"/>
                         <outlet property="vwAnimalLeadingExpanded" destination="XiT-wb-cUm" id="E7H-k8-ygu"/>
                         <outlet property="vwAnimalLeadingOrigin" destination="Psn-KS-fTN" id="WOt-e0-KQz"/>

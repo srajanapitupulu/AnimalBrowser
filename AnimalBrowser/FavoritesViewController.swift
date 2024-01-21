@@ -9,14 +9,22 @@ import Foundation
 import UIKit
 import SkeletonView
 import SDWebImage
+import SquareFlowLayout
 
-class FavoritesViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class FavoritesViewController: UIViewController {
     
-    let iconNames = ["ic_elephant", "ic_lion", "ic_fox", "ic_dog", "ic_shark", "ic_turtle", "ic_whale", "ic_penguin"]
-    let imageNames = ["ELEPHANT", "LION", "FOX", "DOG", "SHARK", "TURTLE", "WHALE", "PENGUIN"]
+    let iconNames = ["ic_all", "ic_elephant", "ic_lion", "ic_fox", "ic_dog", "ic_shark", "ic_turtle", "ic_whale", "ic_penguin"]
+    let imageNames = ["SHOW ALL", "ELEPHANT", "LION", "FOX", "DOG", "SHARK", "TURTLE", "WHALE", "PENGUIN"]
     
     let titleFontAttrs = [ NSAttributedString.Key.font: UIFont(name: "MantraRimba", size: 20)!,
                            NSAttributedString.Key.foregroundColor: UIColor.white ]
+    
+    let titleFontAttrsFiltered = [ NSAttributedString.Key.font: UIFont(name: "MantraRimba", size: 16)!,
+                           NSAttributedString.Key.foregroundColor: UIColor.white ]
+    
+    var appearance = UINavigationBarAppearance()
+    
+    var flowLayout = SquareFlowLayout()
     
     var toastActionSheet: ToastView = {
         var toastActionSheet = ToastView()
@@ -64,7 +72,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         
         self.title = self.animalName
         
-        self.collectionView.collectionViewLayout = SavedCollectionViewLayout()
+        self.collectionView.collectionViewLayout = flowLayout
         self.collectionView.register(UINib(nibName:"PhotosCell", bundle: nil),
                                      forCellWithReuseIdentifier: "PhotosCell")
         
@@ -94,9 +102,9 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = self.animalName
+        self.title = "My Favorites"
         
-        let appearance = UINavigationBarAppearance()
+        //let appearance = UINavigationBarAppearance()
         
         appearance.titleTextAttributes = titleFontAttrs
         appearance.largeTitleTextAttributes = titleFontAttrs
@@ -108,10 +116,9 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         var idx = -1
         filterButton.menu = UIMenu(children: imageNames.map({ image in
             idx = idx + 1
-            var actionBtn = UIAction(title: image,
+            let actionBtn = UIAction(title: image,
                                      image: UIImage(named: iconNames[idx]),
                                      handler: { [weak self] _ in
-                print(image)
                 self!.filterPhotosByName(animalName: image)
             })
             return actionBtn
@@ -120,8 +127,80 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         self.navigationItem.rightBarButtonItem = filterButton;
         
+        flowLayout.flowDelegate = self
+        
         self.view.addSubview(emptyStateView)
     }
+    
+    @objc func addToFavorite(_ sender: UIButton) {
+        let selectedPhoto = self.photos[selectedPhotoIndex]
+        
+        switch sender.tag {
+            // Remove Photo from Favorite List
+        case FavoriteButtonState.favorited.rawValue:
+            if CoreDataHandler.shared.deleteFavorite(photo: selectedPhoto) {
+                toastActionSheet.changeAddFavoriteButtonState(state: .unfavorited)
+                self.photos.remove(at: selectedPhotoIndex)
+            }
+            break
+            
+        default: break
+        }
+        
+        self.collectionView.reloadData()
+        toastActionSheet.dismiss(animated: true)
+    }
+    
+    @objc func openOriginalPhoto(_ sender: UIButton) {
+        let selectedPhoto = self.photos[selectedPhotoIndex]
+        if let url = URL(string: selectedPhoto.url!) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
+    func filterPhotosByName(animalName: String) {
+        
+        self.photos.removeAll()
+        self.collectionView.reloadData()
+        var filterBy = ""
+        
+        if !animalName.elementsEqual("SHOW ALL") {
+            filterBy = animalName
+            self.title = "My Favorites \(animalName)"
+            appearance.largeTitleTextAttributes = titleFontAttrsFiltered
+            appearance.titleTextAttributes = titleFontAttrsFiltered
+        }
+        else {
+            self.title = "My Favorites"
+            appearance.largeTitleTextAttributes = titleFontAttrs
+            appearance.titleTextAttributes = titleFontAttrs
+        }
+        
+        self.photos = CoreDataHandler.shared.retrieve(filterByName: filterBy)
+        self.collectionView.reloadData()
+        
+        if !self.photos.isEmpty {
+            self.collectionView.reloadData()
+            self.collectionView.setNeedsLayout()
+            self.collectionView.layoutIfNeeded()
+            
+            showEmptyStateView(isVisible: false)
+        }
+        else {
+            showEmptyStateView(isVisible: true)
+        }
+    }
+    
+    // Function to show the empty state view
+    func showEmptyStateView(isVisible: Bool) {
+        emptyStateView.isHidden = !isVisible
+        emptyStateView.isUserInteractionEnabled = false
+        if isVisible { emptyStateView.alpha = 1.0 }
+        else {emptyStateView.alpha = 0.0}
+    }
+}
+
+extension FavoritesViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("DATA IN SECTION \(self.photos.count)")
@@ -200,62 +279,17 @@ class FavoritesViewController: UIViewController, UICollectionViewDataSource, UIC
         toastActionSheet.modalPresentationStyle = .automatic
         present(toastActionSheet, animated: true, completion: nil)
     }
-    
-    @objc func addToFavorite(_ sender: UIButton) {
-        let selectedPhoto = self.photos[selectedPhotoIndex]
-        
-        switch sender.tag {
-            // Remove Photo from Favorite List
-        case FavoriteButtonState.favorited.rawValue:
-            if CoreDataHandler.shared.deleteFavorite(photo: selectedPhoto) {
-                toastActionSheet.changeAddFavoriteButtonState(state: .unfavorited)
-                self.photos.remove(at: selectedPhotoIndex)
-            }
-            break
-            
-        default: break
-        }
-        
-        self.collectionView.reloadData()
-        toastActionSheet.dismiss(animated: true)
-    }
-    
-    @objc func openOriginalPhoto(_ sender: UIButton) {
-        let selectedPhoto = self.photos[selectedPhotoIndex]
-        if let url = URL(string: selectedPhoto.url!) {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-    }
-    
-    func filterPhotosByName(animalName: String) {
-        self.photos.removeAll()
-        self.photos = CoreDataHandler.shared.retrieve(filterByName: animalName)
-        self.collectionView.reloadData()
-        
-        if !self.photos.isEmpty {
-            self.collectionView.reloadData()
-            self.collectionView.setNeedsLayout()
-            self.collectionView.layoutIfNeeded()
-            
-            showEmptyStateView(isVisible: false)
-        }
-        else {
-            showEmptyStateView(isVisible: true)
-        }
-    }
-    
-    // Function to show the empty state view
-    func showEmptyStateView(isVisible: Bool) {
-        emptyStateView.isHidden = !isVisible
-        emptyStateView.isUserInteractionEnabled = false
-        if isVisible { emptyStateView.alpha = 1.0 }
-        else {emptyStateView.alpha = 0.0}
-    }
 }
 
 extension FavoritesViewController: SkeletonCollectionViewDataSource {
     func collectionSkeletonView(_ skeletonView: UICollectionView,
                                 cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
         return "PhotosCell"
+    }
+}
+
+extension FavoritesViewController: SquareFlowLayoutDelegate {
+    func shouldExpandItem(at indexPath: IndexPath) -> Bool {
+        return (indexPath.row % 6) == 0
     }
 }

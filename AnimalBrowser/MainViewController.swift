@@ -112,6 +112,8 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
         }
     }
     
+    @IBOutlet weak var tableView: UITableView!
+    
     @objc func goToFavorite(_ sender: UIButton) {
         guard let favoritesViewController = self.favoritesViewController else
         {
@@ -164,6 +166,14 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         self.lblAnimalLocations?.text = self.animalAreas.map { String($0) }.joined(separator: ",")
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellReuseIdentifier")
+        tableView.backgroundColor = UIColor(hexString: "#EBEDCF")
+        tableView.sectionHeaderTopPadding = 0.0
+        tableView.bounces = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.alpha = 0.0
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -241,6 +251,7 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
             
             DispatchQueue.main.async{
                 self.lblAnimalLocations?.text = self.animalAreas.map { String($0) }.joined(separator: ", ")
+                self.tableView.reloadData()
                 self.view.layoutIfNeeded()
             }
         }
@@ -282,6 +293,10 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
                     
                     self.btnCloseInfo.alpha = 1.0
                     self.btnCloseInfo.isEnabled = true
+                }, completion: { (finished: Bool) in
+                    UIView.animate(withDuration: 0.3) {
+                        self.tableView.alpha = 1.0
+                    }
                 })
             })
         case .isCollapsed:
@@ -311,6 +326,7 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
                 self.view.layoutIfNeeded()
                 
                 self.btnCloseInfo.alpha = 0.0
+                self.tableView.alpha = 0.0
                 self.btnCloseInfo.isEnabled = false
             }, completion: { (finished: Bool) in
                 UIView.animate(withDuration: 0.3, delay: 0.0, options: [], animations: {
@@ -322,5 +338,60 @@ class MainViewController: UIViewController, FSPagerViewDataSource, FSPagerViewDe
                 })
             })
         }
+    }
+}
+
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 25
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let emptyStateView = UIView()
+        emptyStateView.frame = CGRect(x: 0,
+                                      y: 0,
+                                      width: tableView.bounds.width,
+                                      height: 0)
+        emptyStateView.backgroundColor = UIColor(hexString: "#EBEDCF")
+
+        let messageLabel = UILabel()
+        messageLabel.text = "Known Species: "
+        messageLabel.font = UIFont.init(name: "Futura-Medium", size: 15)
+        messageLabel.textColor = .gray
+        messageLabel.textColor = UIColor(hexString: "#D46438")
+        messageLabel.textAlignment = .left
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        emptyStateView.addSubview(messageLabel)
+        
+        NSLayoutConstraint.activate([
+            messageLabel.topAnchor.constraint(equalTo: emptyStateView.topAnchor, constant: 5),
+            messageLabel.bottomAnchor.constraint(equalTo: emptyStateView.bottomAnchor, constant: -5),
+            messageLabel.leadingAnchor.constraint(equalTo: emptyStateView.leadingAnchor, constant: 20),
+            messageLabel.trailingAnchor.constraint(equalTo: emptyStateView.trailingAnchor, constant: 0)
+        ])
+        
+        return emptyStateView
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return animalResults.count
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40.0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "cellReuseIdentifier")
+        
+        cell.separatorInset = UIEdgeInsets.init(top: 1, left: 1, bottom: 1, right: 1)
+        cell.backgroundColor = UIColor(hexString: "#EBEDCF")
+
+        // Configure the cell with data
+        cell.textLabel?.text = animalResults[indexPath.row].name
+        cell.textLabel?.font = UIFont.init(name: "Futura-Medium", size: 14)
+        cell.textLabel?.textColor = UIColor(hexString: "#173D1C")
+        
+        return cell
     }
 }
